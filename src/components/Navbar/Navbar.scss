@@ -1,0 +1,17 @@
+.navbar {
+    &__toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        height: 2.5rem;
+        margin-right: 1rem;
+    }
+}
