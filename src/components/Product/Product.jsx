@@ -10,25 +10,30 @@ import {
 } from "@material-ui/core";
 import "./Product.scss";
 
-const Product = ({ name, description, price, image }) => {
+const Product = ({ id, name, description, price, image, addToCartHandler }) => {
     return (
         <Card className="product">
             <CardMedia className="product__media" image={image} title={name} />
 
             <CardContent>
                 <div className="product__info">
-                    <Typography variant="h5" gutterBottom>
-                        {name}
+                    <Typography variant="h6">{name}</Typography>
+                    <Typography variant="h6" gutterBottom color="secondary">
+                        {price}
                     </Typography>
-                    <Typography variant="h5">{price}</Typography>
                 </div>
-                <Typography variant="body2" color="textSecondary">
-                    {description}
-                </Typography>
+                <Typography
+                    dangerouslySetInnerHTML={{ __html: description }}
+                    variant="body2"
+                    color="textSecondary"
+                ></Typography>
             </CardContent>
 
             <CardActions disableSpacing className="product__actions">
-                <IconButton aria-label="Add to cart">
+                <IconButton
+                    aria-label="Add to cart"
+                    onClick={() => addToCartHandler(id, 1)}
+                >
                     <AddShoppingCartIcon />
                 </IconButton>
             </CardActions>

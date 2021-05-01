@@ -1,0 +1,18 @@
+.cart {
+    margin-top: 5rem;
+
+    &__container {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    &__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__emptyButton {
+        margin-right: 1rem !important;
+    }
+}

@@ -11,8 +11,9 @@ import {
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import weblogo from "../../assets/web-logo.svg";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
-const Navbar = () => {
+const Navbar = ({ isLoading, totalItems }) => {
     return (
         <AppBar position="fixed" className="navbar" color="inherit">
             <Toolbar className="navbar__toolbar">
@@ -34,11 +35,14 @@ const Navbar = () => {
                     color="inherit"
                     aria-label="Show cart"
                 >
-                    <Badge badgeContent={5} color="secondary">
+                    <Badge badgeContent={totalItems} color="secondary">
                         <ShoppingCartIcon />
                     </Badge>
                 </IconButton>
             </Toolbar>
+
+            {/* Display loading if products are not loaded */}
+            {isLoading === true && <LinearProgress color="secondary" />}
         </AppBar>
     );
 };
