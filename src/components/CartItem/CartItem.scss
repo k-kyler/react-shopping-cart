@@ -1,0 +1,25 @@
+.cartItem {
+    border-radius: 8px !important;
+    padding-top: 1rem;
+
+    &__media {
+        height: 0;
+        padding-top: 56.25%;
+        background-size: contain !important;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem !important;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+
+        p {
+            margin: 0 1rem;
+        }
+    }
+}

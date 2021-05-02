@@ -1,5 +1,6 @@
 .cart {
-    margin-top: 5rem;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
 
     &__container {
         margin-top: 1rem !important;
@@ -14,5 +15,17 @@
 
     &__emptyButton {
         margin-right: 1rem !important;
+    }
+
+    &__total {
+        display: flex !important;
+
+        :nth-child(2) {
+            margin-left: 0.5rem;
+        }
+    }
+
+    &__empty {
+        margin-top: 1rem !important;
     }
 }

@@ -1,6 +1,7 @@
 import { Navbar, Products, Cart } from "./components";
 import { commerce } from "./commerce";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
     // Create products state
@@ -16,7 +17,6 @@ function App() {
     const getProducts = async () => {
         const { data } = await commerce.products.list();
 
-        // Set products state
         setProducts(data);
 
         // Set loading if products are not loaded
@@ -25,20 +25,42 @@ function App() {
 
     // Get carts
     const getCart = async () => {
-        const data = await commerce.cart.retrieve();
+        const cart = await commerce.cart.retrieve();
 
-        // Set cart state
-        setCart(data);
+        setCart(cart);
 
         // Set loading if cart is not loaded
-        data ? setIsLoading(false) : setIsLoading(true);
+        cart ? setIsLoading(false) : setIsLoading(true);
     };
 
     // Add item to cart handler
     const addToCartHandler = async (productId, amount) => {
-        const item = await commerce.cart.add(productId, amount);
+        const { cart } = await commerce.cart.add(productId, amount);
 
-        setCart(item.cart);
+        setCart(cart);
+    };
+
+    // Update cart's item quantity handler
+    const updateCartItemHandler = async (productId, quantity) => {
+        const { cart } = await commerce.cart.update(productId, {
+            quantity,
+        });
+
+        setCart(cart);
+    };
+
+    // Remove item from cart handler
+    const removeFromCartHandler = async (productId) => {
+        const { cart } = await commerce.cart.remove(productId);
+
+        setCart(cart);
+    };
+
+    // Empty all items in cart
+    const emptyCart = async () => {
+        const { cart } = await commerce.cart.empty();
+
+        setCart(cart);
     };
 
     // Get products and cart after render
@@ -48,20 +70,35 @@ function App() {
     }, []);
 
     return (
-        <>
+        <Router>
             {/* Header */}
             <Navbar isLoading={isLoading} totalItems={cart.total_items} />
 
-            {/* Set loading if products are not loaded else display products list */}
-            {isLoading === false && (
-                // <Products
-                //     products={products}
-                //     addToCartHandler={addToCartHandler}
-                // />
+            <Switch>
+                <Route exact path="/cart">
+                    {/* Set loading if cart are not loaded else display cart list */}
+                    {isLoading === false && (
+                        <Cart
+                            cart={cart}
+                            isLoading={isLoading}
+                            updateCartItemHandler={updateCartItemHandler}
+                            removeFromCartHandler={removeFromCartHandler}
+                            emptyCart={emptyCart}
+                        />
+                    )}
+                </Route>
 
-                <Cart cart={cart} isLoading={isLoading} />
-            )}
-        </>
+                <Route exact path="/">
+                    {/* Set loading if products are not loaded else display products list */}
+                    {isLoading === false && (
+                        <Products
+                            products={products}
+                            addToCartHandler={addToCartHandler}
+                        />
+                    )}
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
