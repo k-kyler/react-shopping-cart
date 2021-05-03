@@ -2,15 +2,15 @@
     margin-top: 6rem;
     margin-bottom: 2rem;
 
+    &__title {
+        @media (max-width: 600px) {
+            text-align: center;
+        }
+    }
+
     &__container {
         margin-top: 1rem !important;
         margin-bottom: 1rem !important;
-    }
-
-    &__details {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 
     &__emptyButton {
@@ -23,9 +23,23 @@
         :nth-child(2) {
             margin-left: 0.5rem;
         }
+
+        @media (max-width: 600px) {
+            justify-content: center;
+        }
     }
 
     &__empty {
         margin-top: 1rem !important;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        @media (max-width: 600px) {
+            justify-content: center;
+            margin-top: 1rem !important;
+        }
     }
 }

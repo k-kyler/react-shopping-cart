@@ -1,7 +1,7 @@
 import React from "react";
 import "./Products.scss";
 import Grid from "@material-ui/core/Grid";
-import Product from "../Product/Product";
+import Product from "./Product/Product";
 import { Container } from "@material-ui/core";
 
 const Products = ({ products, addToCartHandler }) => {

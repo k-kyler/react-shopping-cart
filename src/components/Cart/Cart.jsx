@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid, Button, Typography } from "@material-ui/core";
 import "./Cart.scss";
-import CartItem from "../CartItem/CartItem";
+import CartItem from "./CartItem/CartItem";
 import { Link } from "react-router-dom";
 
 const Cart = ({
@@ -31,15 +31,15 @@ const Cart = ({
                 ))}
             </Grid>
 
-            <div className="cart__details">
-                <div className="cart__total">
+            <Grid container>
+                <Grid item xs={12} sm={4} className="cart__total">
                     <Typography variant="h6">Total:</Typography>
                     <Typography variant="h6" color="secondary">
                         {cart.subtotal.formatted_with_symbol}
                     </Typography>
-                </div>
+                </Grid>
 
-                <div>
+                <Grid item xs={12} sm={8} className="cart__buttons">
                     <Button
                         onClick={() => emptyCart()}
                         variant="contained"
@@ -51,6 +51,8 @@ const Cart = ({
                         Empty cart
                     </Button>
                     <Button
+                        component={Link}
+                        to="/checkout"
                         variant="contained"
                         size="large"
                         className="cart__checkoutButton"
@@ -59,8 +61,8 @@ const Cart = ({
                     >
                         Checkout
                     </Button>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         </>
     );
 

@@ -1,4 +1,4 @@
-import { Navbar, Products, Cart } from "./components";
+import { Navbar, Products, Cart, Checkout } from "./components";
 import { commerce } from "./commerce";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -86,6 +86,10 @@ function App() {
                             emptyCart={emptyCart}
                         />
                     )}
+                </Route>
+
+                <Route exact path="/checkout">
+                    <Checkout />
                 </Route>
 
                 <Route exact path="/">
