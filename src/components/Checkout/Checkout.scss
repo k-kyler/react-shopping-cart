@@ -1,4 +1,9 @@
 .checkout {
     margin-top: 6rem;
-    padding: 1rem;
+    padding: 2rem;
+
+    &__stepper {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 }
