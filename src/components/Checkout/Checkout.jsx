@@ -10,29 +10,105 @@ import {
     Divider,
     Button,
     CircularProgress,
+    CssBaseline,
 } from "@material-ui/core";
 import AddressForm from "./AddressForm/AddressForm";
 import PaymentForm from "./PaymentForm/PaymentForm";
 import { commerce } from "../../commerce";
+import { Link, useHistory } from "react-router-dom";
 
 const steps = ["Shipping address", "Payment details"];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, checkoutCaptureHandler, errorMessage, order }) => {
+    const history = useHistory();
+
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutTokenId, setCheckoutTokenId] = useState("");
     const [shippingData, setShippingData] = useState({});
+    const [timeOut, setTimeOut] = useState(false);
 
     const Form = () =>
         activeStep === 0 ? (
             <AddressForm checkoutTokenId={checkoutTokenId} next={next} />
         ) : (
-            <PaymentForm shippingData={shippingData} />
+            <PaymentForm
+                checkoutTokenId={checkoutTokenId}
+                shippingData={shippingData}
+                backStep={backStep}
+                nextStep={nextStep}
+                checkoutCaptureHandler={checkoutCaptureHandler}
+                timeOutHandler={timeOutHandler}
+            />
         );
 
-    const Confirm = () => {
-        return <div>Confirm</div>;
-    };
+    const Feedback = () =>
+        order.customer ? (
+            <>
+                <div>
+                    <Typography variant="h6" gutterBottom>
+                        Thanks you for your purchase, $
+                        {order.customer.firstname} ${order.customer.lastname}
+                    </Typography>
+                    <Divider className="checkout__feedbackDivider" />
+                    <Typography variant="subtitle2">
+                        Order ref: ${order.customer_reference}
+                    </Typography>
+                </div>
+                <br />
+                <Button
+                    variant="outlined"
+                    component={Link}
+                    to="/"
+                    type="button"
+                >
+                    Back to home
+                </Button>
+            </>
+        ) : timeOut ? (
+            <>
+                <div>
+                    <Typography variant="h6" gutterBottom>
+                        Thanks you for your purchase
+                    </Typography>
+                    <Divider className="checkout__feedbackDivider" />
+                </div>
+                <br />
+                <Button
+                    variant="outlined"
+                    component={Link}
+                    to="/"
+                    type="button"
+                >
+                    Back to home
+                </Button>
+            </>
+        ) : (
+            <div className="checkout__spinner">
+                <CircularProgress />
+            </div>
+        );
 
+    // Payment process time out handler
+    const timeOutHandler = () => {
+        setTimeout(() => {
+            setTimeOut(true);
+        }, 3000);
+    };
+    // End of payment process time out handler
+
+    // Error handler
+    if (errorMessage) {
+        <>
+            <Typography variant="h5">Error: ${errorMessage}</Typography>
+            <br />
+            <Button variant="outlined" component={Link} to="/" type="button">
+                Back to home
+            </Button>
+        </>;
+    }
+    // End of error handler
+
+    // Generate checkout token id handler
     const generateCheckoutTokenId = async (cartId, option) => {
         try {
             const checkoutTokenId = await commerce.checkout.generateToken(
@@ -41,8 +117,11 @@ const Checkout = ({ cart }) => {
             );
 
             setCheckoutTokenId(checkoutTokenId);
-        } catch (error) {}
+        } catch (error) {
+            // history.push("/");
+        }
     };
+    // End of generate checkout token id handler
 
     // Step handler
     const nextStep = () => {
@@ -64,26 +143,32 @@ const Checkout = ({ cart }) => {
     }, [cart]);
 
     return (
-        <Container maxWidth="sm">
-            <Paper className="checkout">
-                <Typography align="center" variant="h4">
-                    Checkout
-                </Typography>
-                <Stepper activeStep={activeStep} className="checkout__stepper">
-                    {steps.map((step) => (
-                        <Step key={step}>
-                            <StepLabel>{step}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
+        <>
+            <CssBaseline />
+            <Container maxWidth="sm">
+                <Paper className="checkout">
+                    <Typography align="center" variant="h4">
+                        Checkout
+                    </Typography>
+                    <Stepper
+                        activeStep={activeStep}
+                        className="checkout__stepper"
+                    >
+                        {steps.map((step) => (
+                            <Step key={step}>
+                                <StepLabel>{step}</StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
 
-                {activeStep === steps.length ? (
-                    <Confirm />
-                ) : (
-                    checkoutTokenId && <Form />
-                )}
-            </Paper>
-        </Container>
+                    {activeStep === steps.length ? (
+                        <Feedback />
+                    ) : (
+                        checkoutTokenId && <Form />
+                    )}
+                </Paper>
+            </Container>
+        </>
     );
 };
 

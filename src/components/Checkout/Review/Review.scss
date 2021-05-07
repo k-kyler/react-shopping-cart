@@ -1,0 +1,14 @@
+.review {
+    &__list {
+        li {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+
+    &__total {
+        h6 {
+            font-weight: 700;
+        }
+    }
+}

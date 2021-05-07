@@ -4,14 +4,11 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-    // Create products state
     const [products, setProducts] = useState([]);
-
-    // Create loading state
     const [isLoading, setIsLoading] = useState(true);
-
-    // Create cart state
     const [cart, setCart] = useState({});
+    const [order, setOrder] = useState({});
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Get products
     const getProducts = async () => {
@@ -63,6 +60,29 @@ function App() {
         setCart(cart);
     };
 
+    // Checkout capture handler
+    const checkoutCaptureHandler = async (checkoutTokenId, newOrder) => {
+        try {
+            refreshCart();
+
+            const incomingOrder = await commerce.checkout.capture(
+                checkoutTokenId,
+                newOrder
+            );
+
+            setOrder(incomingOrder);
+        } catch (error) {
+            setErrorMessage(error.data.error.message);
+        }
+    };
+
+    // Refresh cart
+    const refreshCart = async () => {
+        const newCart = await commerce.cart.refresh();
+
+        setCart(newCart);
+    };
+
     // Get products and cart after render
     useEffect(() => {
         getProducts();
@@ -89,7 +109,12 @@ function App() {
                 </Route>
 
                 <Route exact path="/checkout">
-                    <Checkout cart={cart} />
+                    <Checkout
+                        cart={cart}
+                        checkoutCaptureHandler={checkoutCaptureHandler}
+                        errorMessage={errorMessage}
+                        order={order}
+                    />
                 </Route>
 
                 <Route exact path="/">

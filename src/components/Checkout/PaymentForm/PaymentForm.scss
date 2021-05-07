@@ -1,0 +1,16 @@
+.paymentForm {
+    &__divider {
+        margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    &__title {
+        margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}

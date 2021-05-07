@@ -8,4 +8,13 @@
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
+
+    &__feedbackDivider {
+        margin: 0.5rem 0;
+    }
+
+    &__spinner {
+        display: flex;
+        justify-content: center !important;
+    }
 }
