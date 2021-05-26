@@ -1,6 +1,6 @@
 # E-Commerce Shop
 
-This project was developed with React.js, Material UI & Stripe.js
+This project was developed with React.js, Material UI, Commerce.js & Stripe.js
 
 ## Available Scripts
 
