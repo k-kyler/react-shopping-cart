@@ -12,12 +12,13 @@ function App() {
 
     // Get products
     const getProducts = async () => {
-        const { data } = await commerce.products.list();
+        const response = await commerce.products.list();
 
-        setProducts(data);
+        console.log(response)
+        setProducts(response.data);
 
         // Set loading if products are not loaded
-        data ? setIsLoading(false) : setIsLoading(true);
+        response.data ? setIsLoading(false) : setIsLoading(true);
     };
 
     // Get carts
@@ -96,7 +97,7 @@ function App() {
 
             <Switch>
                 <Route exact path="/cart">
-                    {/* Set loading if cart are not loaded else display cart list */}
+                    {/* Set loading if cart is not loaded else display cart list */}
                     {isLoading === false && (
                         <Cart
                             cart={cart}

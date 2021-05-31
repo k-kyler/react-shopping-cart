@@ -13,7 +13,7 @@ const Products = ({ products, addToCartHandler }) => {
                         <Product
                             id={product.id}
                             name={product.name}
-                            description={product.description}
+                            // description={product.description}
                             price={product.price.formatted_with_symbol}
                             image={product.media.source}
                             addToCartHandler={addToCartHandler}
