@@ -1,6 +1,6 @@
 # E-Commerce Shop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed with React.js, Material UI, Commerce.js & Stripe.js
 
 ## Available Scripts
 
