@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Products.scss";
 import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
-import { Container, Button, Collapse } from "@material-ui/core";
+import { Container, Button, CircularProgress } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import axios from "axios";
 
@@ -14,8 +14,11 @@ const Products = ({
     addToCartHandler,
 }) => {
     const [pageNumber, setPageNumber] = useState(2);
+    const [progress, setProgress] = useState(false);
 
     const loadingMoreProductsHandler = async () => {
+        setProgress(true);
+
         const {
             data: {
                 data,
@@ -33,6 +36,7 @@ const Products = ({
             }
         );
 
+        if (data) setProgress(false);
         setPageNumber((pageNumber) => pageNumber + 1);
         setProducts([...products, ...data]);
         setPagination(pagination);
@@ -59,7 +63,17 @@ const Products = ({
                         <Grid item xs={12} className="products__pagination">
                             <Button
                                 onClick={loadingMoreProductsHandler}
-                                startIcon={<KeyboardArrowDownIcon />}
+                                startIcon={
+                                    progress ? (
+                                        <CircularProgress
+                                            className="products__buttonProgress"
+                                            thickness={5}
+                                            size={20}
+                                        />
+                                    ) : (
+                                        <KeyboardArrowDownIcon />
+                                    )
+                                }
                                 variant="contained"
                                 color="secondary"
                             >
