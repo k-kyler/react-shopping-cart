@@ -1,4 +1,9 @@
 .products {
     margin-top: 6rem;
     margin-bottom: 2rem;
+
+    &__pagination {
+        display: flex !important;
+        justify-content: center !important;
+    }
 }

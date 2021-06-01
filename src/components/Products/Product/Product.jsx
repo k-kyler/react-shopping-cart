@@ -4,9 +4,9 @@ import {
     Card,
     CardMedia,
     CardContent,
-    CardActions,
     IconButton,
     Typography,
+    Tooltip,
 } from "@material-ui/core";
 import "./Product.scss";
 
@@ -17,7 +17,15 @@ const Product = ({ id, name, price, image, addToCartHandler }) => {
 
             <CardContent>
                 <div className="product__info">
-                    <Typography variant="h6" gutterBottom>{name}</Typography>
+                    <Tooltip placement="top" title={name}>
+                        <Typography
+                            variant="h6"
+                            gutterBottom
+                            className="product__name"
+                        >
+                            {name}
+                        </Typography>
+                    </Tooltip>
 
                     <div className="product__priceAndAdd">
                         <Typography variant="h6" color="secondary">

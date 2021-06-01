@@ -9,16 +9,20 @@ function App() {
     const [cart, setCart] = useState({});
     const [order, setOrder] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
+    const [pagination, setPagination] = useState({});
 
     // Get products
     const getProducts = async () => {
-        const response = await commerce.products.list();
+        const {
+            data,
+            meta: { pagination },
+        } = await commerce.products.list();
 
-        console.log(response)
-        setProducts(response.data);
+        setProducts(data);
+        setPagination(pagination);
 
         // Set loading if products are not loaded
-        response.data ? setIsLoading(false) : setIsLoading(true);
+        data ? setIsLoading(false) : setIsLoading(true);
     };
 
     // Get carts
@@ -123,6 +127,9 @@ function App() {
                     {isLoading === false && (
                         <Products
                             products={products}
+                            setProducts={setProducts}
+                            pagination={pagination}
+                            setPagination={setPagination}
                             addToCartHandler={addToCartHandler}
                         />
                     )}
