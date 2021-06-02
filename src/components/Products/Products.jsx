@@ -50,9 +50,9 @@ const Products = ({
                         <Product
                             id={product.id}
                             name={product.name}
-                            // description={product.description}
                             price={product.price.formatted_with_symbol}
                             image={product.media.source}
+                            description={product.description}
                             addToCartHandler={addToCartHandler}
                         />
                     </Grid>
@@ -68,7 +68,7 @@ const Products = ({
                                         <CircularProgress
                                             className="products__buttonProgress"
                                             thickness={5}
-                                            size={20}
+                                            size={18}
                                         />
                                     ) : (
                                         <KeyboardArrowDownIcon />

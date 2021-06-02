@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import {
     Card,
@@ -10,7 +10,9 @@ import {
 } from "@material-ui/core";
 import "./Product.scss";
 
-const Product = ({ id, name, price, image, addToCartHandler }) => {
+const Product = ({ id, name, price, image, description, addToCartHandler }) => {
+    const [openDialog, setOpenDialog] = useState(false);
+
     return (
         <Card className="product">
             <CardMedia className="product__media" image={image} title={name} />
@@ -40,11 +42,6 @@ const Product = ({ id, name, price, image, addToCartHandler }) => {
                         </IconButton>
                     </div>
                 </div>
-                {/* <Typography
-                    dangerouslySetInnerHTML={{ __html: description }}
-                    variant="body2"
-                    color="textSecondary"
-                ></Typography> */}
             </CardContent>
         </Card>
     );
