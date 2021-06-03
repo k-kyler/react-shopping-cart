@@ -102,7 +102,7 @@ function App() {
             <Switch>
                 <Route exact path="/cart">
                     {/* Set loading if cart is not loaded else display cart list */}
-                    {isLoading === false && (
+                    {!isLoading && (
                         <Cart
                             cart={cart}
                             isLoading={isLoading}
@@ -124,15 +124,14 @@ function App() {
 
                 <Route exact path="/">
                     {/* Set loading if products are not loaded else display products list */}
-                    {isLoading === false && (
-                        <Products
-                            products={products}
-                            setProducts={setProducts}
-                            pagination={pagination}
-                            setPagination={setPagination}
-                            addToCartHandler={addToCartHandler}
-                        />
-                    )}
+                    <Products
+                        products={products}
+                        setProducts={setProducts}
+                        pagination={pagination}
+                        setPagination={setPagination}
+                        addToCartHandler={addToCartHandler}
+                        isLoading={isLoading}
+                    />
                 </Route>
             </Switch>
         </Router>

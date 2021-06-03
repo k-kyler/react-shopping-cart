@@ -49,7 +49,7 @@ const Navbar = ({ isLoading, totalItems }) => {
             </Toolbar>
 
             {/* Display loading if products are not loaded */}
-            {isLoading === true && <LinearProgress color="secondary" />}
+            {isLoading && <LinearProgress color="secondary" />}
         </AppBar>
     );
 };

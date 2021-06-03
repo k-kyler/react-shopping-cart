@@ -1,0 +1,26 @@
+.productSkeleton {
+    border-radius: 8px !important;
+    padding: 1rem !important;
+
+    &__rect {
+        width: 100% !important;
+        height: 9rem !important;
+    }
+
+    &__textTitle {
+        height: 1.7rem !important;
+        width: 100% !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    &__textPrice {
+        height: 1.7rem !important;
+        width: 40% !important;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
