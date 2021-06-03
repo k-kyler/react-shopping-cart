@@ -27,4 +27,21 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    &__dialogPrice {
+        display: flex !important;
+
+        p:nth-child(2) {
+            margin-left: 0.5rem !important;
+        }
+    }
+
+    &__dialogImage {
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 13rem;
+        }
+    }
 }
