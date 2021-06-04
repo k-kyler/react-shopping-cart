@@ -3,16 +3,63 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-direction: row-reverse;
     }
 
     &__brand {
         display: flex;
         align-items: center;
         text-decoration: none !important;
+        flex: 1;
     }
 
     &__image {
         height: 2.5rem;
         margin-right: 1rem;
+    }
+
+    &__search {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem 0 0;
+        background-color: #f1f2f5;
+        border-radius: 50px;
+
+        &:hover,
+        &:focus-within {
+            flex: 1;
+            margin: 0 1.5rem;
+            transition: all 0.3s ease-in-out;
+
+            .navbar__input {
+                width: 100% !important;
+            }
+
+            @media (max-width: 427px) {
+                margin: 0 0 0 0.5rem;
+            }
+        }
+
+        &:not(:hover),
+        &:not(:focus-within) {
+            transition: all 0.3s ease-in-out;
+        }
+    }
+
+    &__searchIcon {
+        padding: 0.6rem !important;
+        cursor: pointer;
+    }
+
+    &__input {
+        width: 0 !important;
+    }
+
+    @media (max-width: 427px) {
+        &__search:focus-within ~ &__brand {
+            flex: 0;
+            transition: all 0.3s ease-in-out;
+            display: none;
+        }
     }
 }

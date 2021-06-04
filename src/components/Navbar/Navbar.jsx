@@ -6,11 +6,14 @@ import {
     IconButton,
     Badge,
     Typography,
+    InputBase,
+    useMediaQuery,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import weblogo from "../../assets/web-logo.svg";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { Link, useLocation } from "react-router-dom";
+import SearchIcon from "@material-ui/icons/Search";
 
 const Navbar = ({ isLoading, totalItems }) => {
     const location = useLocation();
@@ -18,6 +21,30 @@ const Navbar = ({ isLoading, totalItems }) => {
     return (
         <AppBar position="fixed" className="navbar" color="inherit">
             <Toolbar className="navbar__toolbar">
+                {location.pathname === "/" && (
+                    <>
+                        <IconButton
+                            className="navbar__showCart"
+                            color="inherit"
+                            aria-label="Show cart"
+                            component={Link}
+                            to="/cart"
+                        >
+                            <Badge badgeContent={totalItems} color="secondary">
+                                <ShoppingCartIcon />
+                            </Badge>
+                        </IconButton>
+
+                        <div className="navbar__search">
+                            <SearchIcon className="navbar__searchIcon" />
+                            <InputBase
+                                className="navbar__input"
+                                placeholder="Search for products..."
+                            />
+                        </div>
+                    </>
+                )}
+
                 <Typography
                     className="navbar__brand"
                     variant="h6"
@@ -30,22 +57,8 @@ const Navbar = ({ isLoading, totalItems }) => {
                         alt="E-Commerce Shop"
                         className="navbar__image"
                     />
-                    E-Commerce Shop
+                    <span>Shoppiness</span>
                 </Typography>
-
-                {location.pathname === "/" && (
-                    <IconButton
-                        className="navbar__showCart"
-                        color="inherit"
-                        aria-label="Show cart"
-                        component={Link}
-                        to="/cart"
-                    >
-                        <Badge badgeContent={totalItems} color="secondary">
-                            <ShoppingCartIcon />
-                        </Badge>
-                    </IconButton>
-                )}
             </Toolbar>
 
             {/* Display loading if products are not loaded */}
