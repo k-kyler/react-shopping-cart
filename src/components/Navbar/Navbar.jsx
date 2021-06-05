@@ -6,7 +6,6 @@ import {
     IconButton,
     Badge,
     Typography,
-    InputBase,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import weblogo from "../../assets/web-logo.svg";
@@ -32,28 +31,29 @@ const Navbar = ({ isLoading, totalItems }) => {
                 </Typography>
 
                 {location.pathname === "/" && (
-                    <>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Search..."
-                            component={Link}
-                            to="/search"
-                        >
-                            <SearchIcon />
-                        </IconButton>
+                    <IconButton
+                        color="inherit"
+                        aria-label="Search..."
+                        component={Link}
+                        to="/search"
+                    >
+                        <SearchIcon />
+                    </IconButton>
+                )}
 
-                        <IconButton
-                            className="navbar__showCart"
-                            color="inherit"
-                            aria-label="Show cart"
-                            component={Link}
-                            to="/cart"
-                        >
-                            <Badge badgeContent={totalItems} color="secondary">
-                                <ShoppingCartIcon />
-                            </Badge>
-                        </IconButton>
-                    </>
+                {(location.pathname === "/" ||
+                    location.pathname === "/search") && (
+                    <IconButton
+                        className="navbar__showCart"
+                        color="inherit"
+                        aria-label="Show cart"
+                        component={Link}
+                        to="/cart"
+                    >
+                        <Badge badgeContent={totalItems} color="secondary">
+                            <ShoppingCartIcon />
+                        </Badge>
+                    </IconButton>
                 )}
             </Toolbar>
 

@@ -1,4 +1,4 @@
-import { Navbar, Products, Cart, Checkout } from "./components";
+import { Navbar, Products, Cart, Checkout, Search } from "./components";
 import { commerce } from "./commerce";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -120,6 +120,10 @@ function App() {
                         errorMessage={errorMessage}
                         order={order}
                     />
+                </Route>
+
+                <Route exact path="/search">
+                    <Search />
                 </Route>
 
                 <Route exact path="/">

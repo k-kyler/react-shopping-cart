@@ -1,0 +1,32 @@
+.search {
+    margin-top: 6rem;
+
+    &__input {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border-radius: 50px;
+        padding: 0.3rem 0.8rem;
+        width: 25rem;
+        margin: 0 auto;
+    }
+
+    &__inputBase {
+        width: 100% !important;
+        margin-left: 0.5rem !important;
+    }
+
+    &__init,
+    &__progressing {
+        display: grid;
+        place-items: center;
+        margin-top: 8rem !important;
+    }
+
+    &__progressing {
+        .MuiCircularProgress-root {
+            height: 3.5rem !important;
+            width: 3.5rem !important;
+        }
+    }
+}
