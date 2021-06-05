@@ -7,7 +7,6 @@ import {
     Badge,
     Typography,
     InputBase,
-    useMediaQuery,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import weblogo from "../../assets/web-logo.svg";
@@ -21,8 +20,28 @@ const Navbar = ({ isLoading, totalItems }) => {
     return (
         <AppBar position="fixed" className="navbar" color="inherit">
             <Toolbar className="navbar__toolbar">
+                <Typography className="navbar__brand" variant="h6">
+                    <Link to="/">
+                        <img
+                            src={weblogo}
+                            alt="E-Commerce Shop"
+                            className="navbar__image"
+                        />
+                        <span>Shoppiness</span>
+                    </Link>
+                </Typography>
+
                 {location.pathname === "/" && (
                     <>
+                        <IconButton
+                            color="inherit"
+                            aria-label="Search..."
+                            component={Link}
+                            to="/search"
+                        >
+                            <SearchIcon />
+                        </IconButton>
+
                         <IconButton
                             className="navbar__showCart"
                             color="inherit"
@@ -34,31 +53,8 @@ const Navbar = ({ isLoading, totalItems }) => {
                                 <ShoppingCartIcon />
                             </Badge>
                         </IconButton>
-
-                        <div className="navbar__search">
-                            <SearchIcon className="navbar__searchIcon" />
-                            <InputBase
-                                className="navbar__input"
-                                placeholder="Search for products..."
-                            />
-                        </div>
                     </>
                 )}
-
-                <Typography
-                    className="navbar__brand"
-                    variant="h6"
-                    color="inherit"
-                    component={Link}
-                    to="/"
-                >
-                    <img
-                        src={weblogo}
-                        alt="E-Commerce Shop"
-                        className="navbar__image"
-                    />
-                    <span>Shoppiness</span>
-                </Typography>
             </Toolbar>
 
             {/* Display loading if products are not loaded */}
