@@ -1,4 +1,4 @@
-# E-Commerce Shop
+# Shoppiness
 
 This project was developed with React.js, Material UI, Commerce.js & Stripe.js
 
