@@ -123,7 +123,7 @@ function App() {
                 </Route>
 
                 <Route exact path="/search">
-                    <Search />
+                    <Search addToCartHandler={addToCartHandler} />
                 </Route>
 
                 <Route exact path="/">

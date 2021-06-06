@@ -4,23 +4,52 @@
     &__input {
         display: flex;
         align-items: center;
-        background-color: white;
         border-radius: 50px;
-        padding: 0.3rem 0.8rem;
-        width: 25rem;
-        margin: 0 auto;
+        width: 100%;
+        flex-direction: row-reverse;
+        background-color: white;
+    }
+
+    &__icon {
+        background-color: #febd78;
+        padding: 0.5rem !important;
+        cursor: pointer;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        opacity: 0.8;
+
+        &:hover {
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:not(:hover) {
+            transition: all 0.3s ease-in-out;
+        }
     }
 
     &__inputBase {
         width: 100% !important;
-        margin-left: 0.5rem !important;
+        background-color: white !important;
+        margin-left: 1rem !important;
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
     }
 
-    &__init,
+    &__container {
+        margin-top: 2rem !important;
+    }
+
+    &__form,
+    &__image,
     &__progressing {
         display: grid;
         place-items: center;
-        margin-top: 8rem !important;
+    }
+
+    &__image > img {
+        max-width: 100%;
+        height: auto;
     }
 
     &__progressing {

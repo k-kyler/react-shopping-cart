@@ -6,15 +6,17 @@ import {
     Container,
     Grid,
     CircularProgress,
-    Typography,
 } from "@material-ui/core";
 import { commerce } from "../../commerce";
+import axios from "axios";
+import Product from "../Products/Product/Product";
+import SearchPng from "../../assets/Search.gif";
 
-const Search = () => {
+const Search = ({ addToCartHandler }) => {
     const [input, setInput] = useState("");
     const [searchingProgress, setSearchingProgress] = useState(false);
-    const [text, setText] = useState("No item being searched...");
     const [searchList, setSearchList] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     const inputHandler = (value) => {
         setInput(value);
@@ -23,10 +25,7 @@ const Search = () => {
 
     const getPageData = async (pageNumber) => {
         const {
-            data: {
-                data,
-                meta: { pagination },
-            },
+            data: { data },
         } = await axios.get(
             `https://api.chec.io/v1/products?page=${pageNumber}`,
             {
@@ -39,37 +38,36 @@ const Search = () => {
             }
         );
 
-        if (data) return data
+        if (data) return data;
         return null;
     };
 
     const getSearchList = async () => {
-        const {
-            data,
-            meta: { pagination },
-        } = await commerce.products.list();
+        const { data } = await commerce.products.list();
         let pageNumber = 2;
         let pageData = [];
 
-        while (true) {
-            let data = getPageData(pageNumber);
+        try {
+            while (true) {
+                const data = await getPageData(pageNumber);
 
-            pageData.push(data);
-            pageNumber++;
-
-            if (!data) break;
-        }
+                if (!data.length) break;
+                pageData.push(...data);
+                pageNumber++;
+            }
+        } catch (error) {}
 
         setSearchList([...data, ...pageData]);
     };
 
     const searchHandler = () => {
-        try {
-        } catch (error) {
-            if (error) {
-                setText("No items found...");
-                setSearchingProgress(false);
-            }
+        const results = searchList.filter((item) =>
+            item.name.trim().toLowerCase().includes(input.trim().toLowerCase())
+        );
+
+        if (results && results.length) {
+            setSearchingProgress(false);
+            setSearchResults(results);
         }
     };
 
@@ -83,27 +81,58 @@ const Search = () => {
 
     return (
         <Container className="search">
-            <div className="search__input MuiPaper-elevation4">
-                <SearchIcon />
-                <InputBase
-                    className="search__inputBase"
-                    placeholder="Find your favourite items..."
-                    value={input}
-                    onChange={(event) => inputHandler(event.target.value)}
-                />
-            </div>
-
             <Grid container justify="center" spacing={4}>
-                {!input || !searchingProgress ? (
-                    <Grid item xs={12} className="search__init">
-                        <Typography variant="h5" color="primary">
-                            {text}
-                        </Typography>
+                <Grid item xs={12} sm={6} md={6} className="search__form">
+                    <div className="search__input MuiPaper-elevation4">
+                        <SearchIcon className="search__icon" />
+                        <InputBase
+                            className="search__inputBase"
+                            placeholder="Find your favourite items here..."
+                            value={input}
+                            onChange={(event) =>
+                                inputHandler(event.target.value)
+                            }
+                        />
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid
+                container
+                justify="center"
+                spacing={4}
+                className="search__container"
+            >
+                {!input ? (
+                    <Grid item xs={12} className="search__image">
+                        <img src={SearchPng} alt="No items being searched..." />
                     </Grid>
                 ) : searchingProgress ? (
                     <Grid item xs={12} className="search__progressing">
                         <CircularProgress />
                     </Grid>
+                ) : searchResults && searchResults.length ? (
+                    <>
+                        {searchResults.map((product) => (
+                            <Grid
+                                key={product.id}
+                                item
+                                xs={12}
+                                sm={6}
+                                md={4}
+                                lg={3}
+                            >
+                                <Product
+                                    id={product.id}
+                                    name={product.name}
+                                    price={product.price.formatted_with_symbol}
+                                    image={product.media.source}
+                                    description={product.description}
+                                    addToCartHandler={addToCartHandler}
+                                />
+                            </Grid>
+                        ))}
+                    </>
                 ) : null}
             </Grid>
         </Container>
