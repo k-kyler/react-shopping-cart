@@ -22,4 +22,11 @@
             margin: 0 1rem;
         }
     }
+
+    &__name {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
 }

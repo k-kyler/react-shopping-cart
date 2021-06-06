@@ -7,6 +7,7 @@ import {
     Button,
     Typography,
     IconButton,
+    Tooltip,
 } from "@material-ui/core";
 import "./CartItem.scss";
 import AddIcon from "@material-ui/icons/Add";
@@ -22,7 +23,12 @@ const CartItem = ({ item, updateCartItemHandler, removeFromCartHandler }) => {
             />
 
             <CardContent className="cartItem__content">
-                <Typography variant="h6">{item.name}</Typography>
+                <Tooltip placement="top" title={item.name}>
+                    <Typography variant="h6" className="cartItem__name">
+                        {item.name}
+                    </Typography>
+                </Tooltip>
+
                 <Typography variant="h6" color="secondary">
                     {item.line_total.formatted_with_symbol}
                 </Typography>
