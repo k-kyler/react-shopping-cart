@@ -42,9 +42,19 @@
 
     &__form,
     &__image,
-    &__noResults {
+    &__noResults,
+    &__loading {
         display: grid;
         place-items: center;
+    }
+
+    &__loading {
+        margin-top: 3rem;
+
+        .MuiCircularProgress-root {
+            width: 3rem !important;
+            height: 3rem !important;
+        }
     }
 
     &__image > img {

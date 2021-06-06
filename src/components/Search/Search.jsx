@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import "./Search.scss";
 import SearchIcon from "@material-ui/icons/Search";
-import { InputBase, Container, Grid, Typography } from "@material-ui/core";
+import {
+    InputBase,
+    Container,
+    Grid,
+    Typography,
+    CircularProgress,
+} from "@material-ui/core";
 import { commerce } from "../../commerce";
 import axios from "axios";
 import Product from "../Products/Product/Product";
@@ -10,7 +16,7 @@ import SearchPng from "../../assets/Search.gif";
 const Search = ({ addToCartHandler }) => {
     const [input, setInput] = useState("");
     const [searchList, setSearchList] = useState([]);
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(["Initial"]);
 
     const getPageData = async (pageNumber) => {
         const {
@@ -88,46 +94,57 @@ const Search = ({ addToCartHandler }) => {
                 </Grid>
             </Grid>
 
-            <Grid
-                container
-                justify="center"
-                spacing={4}
-                className="search__container"
-            >
-                {searchResults.length ? (
-                    <>
-                        {searchResults.map((product) => (
-                            <Grid
-                                key={product.id}
-                                item
-                                xs={12}
-                                sm={6}
-                                md={4}
-                                lg={3}
-                            >
-                                <Product
-                                    id={product.id}
-                                    name={product.name}
-                                    price={product.price.formatted_with_symbol}
-                                    image={product.media.source}
-                                    description={product.description}
-                                    addToCartHandler={addToCartHandler}
-                                />
-                            </Grid>
-                        ))}
-                    </>
-                ) : !searchResults.length ? (
-                    <Grid item xs={12} className="search__noResults">
-                        <Typography variant="h5" color="primary">
-                            No results found...
-                        </Typography>
-                    </Grid>
-                ) : (
-                    <Grid item xs={12} className="search__image">
-                        <img src={SearchPng} alt="No items being searched..." />
-                    </Grid>
-                )}
-            </Grid>
+            {!searchList.length ? (
+                <div className="search__loading">
+                    <CircularProgress />
+                </div>
+            ) : (
+                <Grid
+                    container
+                    justify="center"
+                    spacing={4}
+                    className="search__container"
+                >
+                    {searchResults.length && searchResults[0] !== "Initial" ? (
+                        <>
+                            {searchResults.map((product) => (
+                                <Grid
+                                    key={product.id}
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    md={4}
+                                    lg={3}
+                                >
+                                    <Product
+                                        id={product.id}
+                                        name={product.name}
+                                        price={
+                                            product.price.formatted_with_symbol
+                                        }
+                                        image={product.media.source}
+                                        description={product.description}
+                                        addToCartHandler={addToCartHandler}
+                                    />
+                                </Grid>
+                            ))}
+                        </>
+                    ) : !searchResults.length ? (
+                        <Grid item xs={12} className="search__noResults">
+                            <Typography variant="h5" color="primary">
+                                No results found...
+                            </Typography>
+                        </Grid>
+                    ) : (
+                        <Grid item xs={12} className="search__image">
+                            <img
+                                src={SearchPng}
+                                alt="No items being searched..."
+                            />
+                        </Grid>
+                    )}
+                </Grid>
+            )}
         </Container>
     );
 };
