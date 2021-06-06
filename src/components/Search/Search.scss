@@ -42,7 +42,7 @@
 
     &__form,
     &__image,
-    &__progressing {
+    &__noResults {
         display: grid;
         place-items: center;
     }
@@ -50,12 +50,5 @@
     &__image > img {
         max-width: 100%;
         height: auto;
-    }
-
-    &__progressing {
-        .MuiCircularProgress-root {
-            height: 3.5rem !important;
-            width: 3.5rem !important;
-        }
     }
 }

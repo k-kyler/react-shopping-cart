@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Search.scss";
 import SearchIcon from "@material-ui/icons/Search";
-import {
-    InputBase,
-    Container,
-    Grid,
-    CircularProgress,
-} from "@material-ui/core";
+import { InputBase, Container, Grid, Typography } from "@material-ui/core";
 import { commerce } from "../../commerce";
 import axios from "axios";
 import Product from "../Products/Product/Product";
@@ -14,14 +9,8 @@ import SearchPng from "../../assets/Search.gif";
 
 const Search = ({ addToCartHandler }) => {
     const [input, setInput] = useState("");
-    const [searchingProgress, setSearchingProgress] = useState(false);
     const [searchList, setSearchList] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
-
-    const inputHandler = (value) => {
-        setInput(value);
-        setSearchingProgress(true);
-    };
 
     const getPageData = async (pageNumber) => {
         const {
@@ -61,12 +50,14 @@ const Search = ({ addToCartHandler }) => {
     };
 
     const searchHandler = () => {
-        const results = searchList.filter((item) =>
-            item.name.trim().toLowerCase().includes(input.trim().toLowerCase())
-        );
+        if (input) {
+            const results = searchList.filter((item) =>
+                item.name
+                    .trim()
+                    .toLowerCase()
+                    .includes(input.trim().toLowerCase())
+            );
 
-        if (results && results.length) {
-            setSearchingProgress(false);
             setSearchResults(results);
         }
     };
@@ -75,22 +66,22 @@ const Search = ({ addToCartHandler }) => {
         getSearchList();
     }, []);
 
-    useEffect(() => {
-        if (input) searchHandler();
-    }, [input]);
-
     return (
         <Container className="search">
             <Grid container justify="center" spacing={4}>
                 <Grid item xs={12} sm={6} md={6} className="search__form">
                     <div className="search__input MuiPaper-elevation4">
-                        <SearchIcon className="search__icon" />
+                        <SearchIcon
+                            className="search__icon"
+                            onClick={() => searchHandler()}
+                        />
                         <InputBase
                             className="search__inputBase"
                             placeholder="Find your favourite items here..."
                             value={input}
-                            onChange={(event) =>
-                                inputHandler(event.target.value)
+                            onChange={(event) => setInput(event.target.value)}
+                            onKeyPress={(event) =>
+                                event.key === "Enter" && searchHandler()
                             }
                         />
                     </div>
@@ -103,15 +94,7 @@ const Search = ({ addToCartHandler }) => {
                 spacing={4}
                 className="search__container"
             >
-                {!input ? (
-                    <Grid item xs={12} className="search__image">
-                        <img src={SearchPng} alt="No items being searched..." />
-                    </Grid>
-                ) : searchingProgress ? (
-                    <Grid item xs={12} className="search__progressing">
-                        <CircularProgress />
-                    </Grid>
-                ) : searchResults && searchResults.length ? (
+                {searchResults.length ? (
                     <>
                         {searchResults.map((product) => (
                             <Grid
@@ -133,7 +116,17 @@ const Search = ({ addToCartHandler }) => {
                             </Grid>
                         ))}
                     </>
-                ) : null}
+                ) : !searchResults.length ? (
+                    <Grid item xs={12} className="search__noResults">
+                        <Typography variant="h5" color="primary">
+                            No results found...
+                        </Typography>
+                    </Grid>
+                ) : (
+                    <Grid item xs={12} className="search__image">
+                        <img src={SearchPng} alt="No items being searched..." />
+                    </Grid>
+                )}
             </Grid>
         </Container>
     );
