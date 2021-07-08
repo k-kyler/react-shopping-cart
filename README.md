@@ -1,6 +1,6 @@
 # Shoppiness
 
-A small E-Commerce site where you can quickly search for your favourite products, simply add them to your cart and start your payment process. I have made this project while learning how to build an E-commerce website and how is it workflow, also this project is just a simple build but I have primarily focus on the main functionalities like showing products list, pagination, searching product, adding products to cart, managing cart and payment process.
+A small E-Commerce site where you can search for your favourite products, simply add them to your cart and start your payment process. I had made this project while learning how to build an E-commerce site and how is it workflow. This project is just a simple build with a little products but I'm primarily focus on the main functionalities like showing products list, loading more products, searching product, adding products to cart, managing cart and payment process.
 
 ## Available Scripts
 
