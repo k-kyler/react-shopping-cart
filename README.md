@@ -1,6 +1,12 @@
 # Shopping cart V2
 
-Main functionalities: showing products list, loading more products, searching product, adding products to cart, managing cart and payment process.
+Main functionalities: 
+- view products list 
+- Load more products
+- Search product
+- Add products to cart
+- Edit cart
+- Payment process
 
 ## Available Scripts
 
