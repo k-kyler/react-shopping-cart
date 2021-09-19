@@ -1,13 +1,5 @@
 # Shopping cart V2
 
-Main functionalities: 
-- view products list 
-- Load more products
-- Search product
-- Add products to cart
-- Edit cart
-- Payment process
-
 ## Available Scripts
 
 In the project directory, you can run:
