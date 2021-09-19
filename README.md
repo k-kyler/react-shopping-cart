@@ -1,6 +1,6 @@
-# Shopping Cart
+# Shopping cart V2
 
-A small shopping cart with few products, I'm primarily focus on the main functionalities like showing products list, loading more products, searching product, adding products to cart, managing cart and payment process.
+Main functionalities: showing products list, loading more products, searching product, adding products to cart, managing cart and payment process.
 
 ## Available Scripts
 
