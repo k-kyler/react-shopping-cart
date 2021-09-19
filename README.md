@@ -1,4 +1,6 @@
-# Shopping cart V2
+# Shoppiness
+
+A shopping cart developed by Commerce.js and Stripe.
 
 ## Available Scripts
 
