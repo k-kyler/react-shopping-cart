@@ -1,6 +1,6 @@
 # Shoppiness
 
-A shopping cart developed by Commerce.js and Stripe.
+Features are developed by React, Commerce.js and Stripe.
 
 ## Available Scripts
 
