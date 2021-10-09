@@ -1,6 +1,4 @@
-# Shoppiness
-
-A small shopping cart 
+# Shopping Cart 
 
 ## Available Scripts
 
