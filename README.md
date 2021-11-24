@@ -1,2 +1,2 @@
 # Shopping Cart 
-A shopping cart demo with features and payment process implemented by Commerce.js and Stripe.
+A shopping cart demo with product features and payment process developed by Commerce.js and Stripe.
